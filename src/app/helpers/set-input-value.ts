@@ -1,6 +1,5 @@
 const setInputValue = (input: HTMLInputElement, value: string): void => {
-  const inputPrototype = Object.getPrototypeOf(input);
-  const inputSetter = Object.getOwnPropertyDescriptor(inputPrototype, 'value').set;
+  const inputSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(input), 'value').set;
 
   input.focus();
   inputSetter.call(input, value);

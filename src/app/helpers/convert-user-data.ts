@@ -1,5 +1,5 @@
-import UserModel from '../app/models/user-model';
-import ArrayUserModel from '../app/models/array-user-model';
+import UserModel from '../models/user-model';
+import ArrayUserModel from '../models/array-user-model';
 
 const convertUserData = (userData: UserModel): ArrayUserModel => {
   const user: Array<string> = [];

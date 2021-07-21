@@ -19,21 +19,33 @@ class App {
 
   private isInputsFilled = false;
 
+  private autoFillInProcess = false;
+
+  private tableRows = 1;
+
+
   constructor(user: UserModel) {
     this.userData = convertUserData(user);
-    console.log(user);
 
     this.btnFill = getBtnByText('fill', document);
     this.btnAdd = getBtnByText('add', document);
     this.inputs = document.querySelectorAll('input');
 
-    this.setupButtonFill();
+    this.setupButtons();
   }
 
-  setupButtonFill(): void {
+  setupButtons(): void {
     this.btnFill.addEventListener('click', () => {
       if (this.isInputsFilled) return;
       this.fillMainFormInputs();
+
+      if (this.userData.workers.length > 0) {
+        this.fillModalInputs().then();
+      }
+    });
+
+    this.btnAdd.addEventListener('click', () => {
+      if (this.autoFillInProcess) return;
 
       if (this.userData.workers.length > 0) {
         this.fillModalInputs().then();
@@ -50,19 +62,22 @@ class App {
   }
 
   async fillModalInputs(): Promise<void> {
+    this.autoFillInProcess = true;
+
     for (const worker of this.userData.workers) {
       try {
         this.btnAdd.click();
         const modalControls = await waitModalOpen();
         await fillModalFields(modalControls, worker);
         await waitUserConfirm(modalControls);
-        await waitModalClose();
+        await waitModalClose(this.tableRows);
+        this.tableRows++;
       } catch (e) {
-        console.log('window closed');
+        this.userData.workers.splice(0, this.tableRows);
+        this.autoFillInProcess = false;
+        break;
       }
     }
-
-    console.log('modal showed!');
   }
 }
 

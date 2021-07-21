@@ -1,7 +1,10 @@
 const convertDate = (input: string) => {
   if (!input) return;
-  return input.split('-').reverse().join('/');
+  const dateArr = input.split('-');
+  const year = dateArr.shift();
+  dateArr.push(year);
 
+  return dateArr.join('/');
 };
 
 export default convertDate;

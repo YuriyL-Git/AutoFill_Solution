@@ -3,19 +3,26 @@ import setInputValue from './set-input-value';
 import convertDate from './convert-date';
 import waitModalInput from '../services/wait-modal-input';
 
+const AUTO_FILL_ROWS = 3;
+
+const DOB_INDEX = 3;
+const EXPERIENCE_INDEX = 4;
+const GENDER_INDEX = 5;
+
+
 const fillModalFields = async (modalControls: ModalWindowControls, worker: Array<string>): Promise<boolean> => {
   // set First Name, Last Name, Job position
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < AUTO_FILL_ROWS; i++) {
     setInputValue(modalControls.inputs[i], worker[i]);
   }
 
   // set date converted to right format
-  setInputValue(modalControls.inputs[3], convertDate(worker[3]));
+  setInputValue(modalControls.inputs[DOB_INDEX], convertDate(worker[DOB_INDEX]));
 
   // set gender if information available
-  if (worker[5]) {
+  if (worker[GENDER_INDEX]) {
     modalControls.inputs.forEach(input => {
-      if (input.value === worker[5]) {
+      if (input.value === worker[GENDER_INDEX]) {
         input.click();
       }
     });
@@ -23,9 +30,9 @@ const fillModalFields = async (modalControls: ModalWindowControls, worker: Array
 
   try {
     const inputExperience = await waitModalInput();
-    setInputValue(inputExperience, convertDate(worker[4]));
+    setInputValue(inputExperience, worker[EXPERIENCE_INDEX]);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };

@@ -1,17 +1,19 @@
 import getBtnByText from '../helpers/get-btn-by-text';
 import ModalWindowControls from '../models/modal-controls';
 
-const MODAL_WINDOW_TIMEOUT = 4000;
+const MODAL_WINDOW_TIMEOUT = 6000;
+const CHECK_INTERVAL = 100;
 
-const waitModalWindow = async (): Promise<ModalWindowControls | null> => {
+const waitModalOpen = async (): Promise<ModalWindowControls | null> => {
   let timePassed = 0;
   return new Promise((resolve, reject) => {
     const modalInterval = setInterval(() => {
       const modalWindow = document.querySelector('.MuiDialog-container');
+      if (!modalWindow) return;
       const btnAdd = getBtnByText('add', modalWindow);
       const btnCancel = getBtnByText('cancel', modalWindow);
       const inputs = modalWindow.querySelectorAll('input');
-      timePassed += 100;
+      timePassed += CHECK_INTERVAL;
 
       if (btnAdd) {
         const result: ModalWindowControls = {
@@ -25,8 +27,8 @@ const waitModalWindow = async (): Promise<ModalWindowControls | null> => {
       if (timePassed > MODAL_WINDOW_TIMEOUT) {
         reject(null);
       }
-    }, 100);
+    }, CHECK_INTERVAL);
   });
 };
 
-export default waitModalWindow;
+export default waitModalOpen;

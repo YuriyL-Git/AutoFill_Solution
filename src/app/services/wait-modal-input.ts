@@ -1,16 +1,19 @@
+const INDEX_INPUT_EXPERIENCE = 4;
+const ALL_INPUTS = 8;
+
 const waitModalInput = async (): Promise<HTMLInputElement | null> => {
   return new Promise((resolve, reject) => {
     const modalInterval = setInterval(() => {
       const modalWindow = document.querySelector('.MuiDialog-container');
-      const inputs = modalWindow.querySelectorAll('input');
-
-      if (inputs.length === 8) {
-        clearInterval(modalInterval);
-        resolve(inputs[4]);
-      }
-      if (inputs.length === 0) {
+      if (!modalWindow) {
         clearInterval(modalInterval);
         reject(null);
+      }
+
+      const inputs = modalWindow?.querySelectorAll('input');
+      if (inputs?.length === ALL_INPUTS) {
+        clearInterval(modalInterval);
+        resolve(inputs[INDEX_INPUT_EXPERIENCE]);
       }
     }, 100);
   });

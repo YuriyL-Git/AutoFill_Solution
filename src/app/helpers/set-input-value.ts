@@ -1,4 +1,4 @@
-const setInputValue = (input: HTMLInputElement, value: string): void => {
+const setInputValue = (input: HTMLInputElement, value: string | boolean): void => {
   const inputSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(input), 'value').set;
 
   input.focus();

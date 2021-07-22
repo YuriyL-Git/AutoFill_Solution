@@ -1,7 +1,8 @@
 import modalCloseHandler from '../helpers/modal-close-handler';
 
 const INDEX_INPUT_EXPERIENCE = 4;
-const ALL_INPUTS = 8;
+const INPUTS_QTY = 8;
+const CHECK_INTERVAL = 100;
 
 const waitModalInput = async (): Promise<HTMLInputElement | null> => {
   return new Promise((resolve, reject) => {
@@ -14,11 +15,11 @@ const waitModalInput = async (): Promise<HTMLInputElement | null> => {
       }
 
       const inputs = modalWindow?.querySelectorAll('input');
-      if (inputs?.length === ALL_INPUTS) {
+      if (inputs?.length === INPUTS_QTY) {
         clearInterval(modalInterval);
         resolve(inputs[INDEX_INPUT_EXPERIENCE]);
       }
-    }, 100);
+    }, CHECK_INTERVAL);
   });
 };
 

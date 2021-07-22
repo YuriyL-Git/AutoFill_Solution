@@ -16,7 +16,6 @@ const waitModalOpen = async (): Promise<ModalWindowControls | null> => {
 
       if (btnAdd) {
         clearInterval(modalInterval);
-        console.log('MODAL OPENED!');
         resolve({inputs, btnCancel, btnAdd});
       }
     }, CHECK_INTERVAL);

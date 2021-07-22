@@ -5,4 +5,6 @@ window.addEventListener('load', function (event) {
   // @ts-ignore
   const userData = data as UserModel;
   new App(userData);
+
+  console.log('Input data = ', userData);
 });

@@ -21,14 +21,11 @@ class App {
 
   private initWorkersQty: number;
 
-  private flowIsRunning = false;
-
   private autoFillInProcess: boolean;
 
   constructor(user: UserModel) {
     this.userData = convertUserData(user);
     this.initWorkersQty = this.userData.workers.length;
-    console.log(this.userData);
 
     this.btnFill = getBtnByText('fill', document);
     this.btnAdd = getBtnByText('add', document);
@@ -39,22 +36,20 @@ class App {
 
   setupButtons(): void {
     this.btnFill.addEventListener('click', () => {
-      this.flowIsRunning = true;
       if (!this.isInputsFilled) {
         this.fillMainFormInputs();
       }
       if (this.userData.workers.length > 0) {
-        this.fillModalInputs().then();
+        this.fillWorkers().then();
       }
     });
 
     this.btnAdd.addEventListener('click', () => {
-      if (this.autoFillInProcess) return;
+      if (this.autoFillInProcess || !this.isInputsFilled) return;
       if (this.userData.workers.length > 0) {
-        this.fillModalInputs().then();
+        this.fillWorkers().then();
       }
     });
-
   }
 
   fillMainFormInputs(): void {
@@ -64,30 +59,30 @@ class App {
     this.isInputsFilled = true;
   }
 
-
-  async fillModalInputs(): Promise<void> {
+  async fillWorkers(): Promise<void> {
     this.autoFillInProcess = true;
-    console.log('workers', this.userData.workers);
+
     for (const worker of this.userData.workers) {
       try {
         this.btnAdd.click();
-        const modalControls = await waitModalOpen();
-        await fillModalFields(modalControls, worker);
-        await waitUserConfirm(modalControls);
-        await waitModalClose();
-      } catch (e) {
+        await this.fillCurrentWorker(worker);
+
+      } catch {
         const filledRows = document.querySelectorAll('.MuiTableRow-root');
         const diff = this.userData.workers.length + filledRows.length - this.initWorkersQty - 1;
-        if (diff > 0) {
-          this.userData.workers.splice(0, diff);
-        }
+        this.userData.workers.splice(0, diff);
         this.autoFillInProcess = false;
-        console.log('REJECT!!');
-        console.log(this.userData.workers);
         return;
       }
     }
     this.userData.workers = [];
+  }
+
+  async fillCurrentWorker(worker: Array<string>): Promise<void> {
+    const modalControls = await waitModalOpen();
+    await fillModalFields(modalControls, worker);
+    await waitUserConfirm(modalControls);
+    await waitModalClose();
   }
 }
 

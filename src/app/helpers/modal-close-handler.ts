@@ -1,6 +1,6 @@
 import getBtnByText from './get-btn-by-text';
 
-const modalCloseHandler = (callback: Function) => {
+const modalCloseHandler = (callback: Function):void => {
   const container = document.querySelector('.MuiDialog-container');
   const btnCancel = getBtnByText('cancel', container);
 

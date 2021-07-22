@@ -10,19 +10,6 @@ const waitUserConfirm = async (modalControls: ModalWindowControls
         resolve(true);
       });
       modalCloseHandler(reject);
-
-      /*      modalControls.btnCancel.addEventListener('click', () => {
-              reject(false);
-            });*/
-
-      /*      const container = document.querySelector('.MuiDialog-root');
-            const modalWindow = document.querySelector('.MuiDialog-container');
-
-            container.addEventListener('click', () => {
-              if (event.target === modalWindow) return;
-              console.log('reject! wait user confirm');
-              reject(false);
-            });*/
     });
   }
 ;

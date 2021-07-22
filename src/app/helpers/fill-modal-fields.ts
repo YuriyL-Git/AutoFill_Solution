@@ -19,7 +19,7 @@ const fillModalFields = async (modalControls: ModalWindowControls, worker: Array
   // set date converted to right format
   setInputValue(modalControls.inputs[DOB_INDEX], convertDate(worker[DOB_INDEX]));
 
-  // set gender if information available
+  // set gender if information is available
   if (worker[GENDER_INDEX]) {
     modalControls.inputs.forEach(input => {
       if (input.value === worker[GENDER_INDEX]) {
@@ -28,13 +28,9 @@ const fillModalFields = async (modalControls: ModalWindowControls, worker: Array
     });
   }
 
-  try {
-    const inputExperience = await waitModalInput();
-    setInputValue(inputExperience, worker[EXPERIENCE_INDEX]);
-    return true;
-  } catch {
-    return false;
-  }
+  const inputExperience = await waitModalInput();
+  setInputValue(inputExperience, worker[EXPERIENCE_INDEX]);
+  return true;
 };
 
 export default fillModalFields;

@@ -1,5 +1,7 @@
 const getBtnByText = (text: string, component: Element | Document): HTMLButtonElement | null => {
-  const btnArray = component.querySelectorAll('button');
+  const btnArray = component?.querySelectorAll('button');
+  if (!btnArray) return null;
+
   let result = null;
   btnArray.forEach((btn) => {
     const btnSpan = btn.querySelector('span');

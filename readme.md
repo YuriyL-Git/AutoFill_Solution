@@ -19,5 +19,5 @@ the process will continue from the place it was stopped.
 
 To start the project locally:
 1. Clone git repository.
-2. Install npm modules using the command 'npm run install'.
+2. Install npm modules using the command 'npm install'.
 3. Start dev server using the command 'npm run start'

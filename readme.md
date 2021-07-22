@@ -1,7 +1,7 @@
 # Weblink autofill soulution
 
 Link to deploy:
-[AutoFill Solution](https://yuriyl-git.github.io/AutoFill_Solution/ "Autofill solution")
+[Weblink autofill solution](https://yuriyl-git.github.io/AutoFill_Solution/ "Autofill solution")
 
 Project is created to help the user automatically fill in available data.
 
@@ -14,3 +14,10 @@ saved into the table.
 
 At any moment worker modal window could be closed. After pushing the 'Fill' or 'Add' buttons 
 the process will continue from the place it was stopped.
+
+--------------------------------------------------------------------------------------------
+
+To start the project locally:
+1. Clone git repository.
+2. Install npm modules using the command 'npm run install'.
+3. Start dev server using the command 'npm run start'

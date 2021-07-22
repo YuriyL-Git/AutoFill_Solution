@@ -4,11 +4,9 @@ import convertDate from './convert-date';
 import waitModalInput from '../services/wait-modal-input';
 
 const AUTO_FILL_ROWS = 3;
-
 const DOB_INDEX = 3;
 const EXPERIENCE_INDEX = 4;
 const GENDER_INDEX = 5;
-
 
 const fillModalFields = async (modalControls: ModalWindowControls, worker: Array<string>): Promise<boolean> => {
   // set First Name, Last Name, Job position

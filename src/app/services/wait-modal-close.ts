@@ -11,7 +11,6 @@ const waitModalClose = async (): Promise<boolean> => {
         clearInterval(modalInterval);
         resolve(true);
       }
-
     }, CHECK_INTERVAL);
 
     modalCloseHandler(reject);
